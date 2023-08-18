@@ -14,7 +14,7 @@ public class TimezoneValidateFilter extends HttpFilter {
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        String timezoneParam = req.getQueryString();
+        String timezoneParam = req.getParameter("timezone");
 
         if (timezoneParam == null || isValid(timezoneParam)){
             chain.doFilter(req, res);
@@ -28,9 +28,7 @@ public class TimezoneValidateFilter extends HttpFilter {
 
     private boolean isValid(String timezone){
         try {
-            StringBuilder val = new StringBuilder(timezone);
-            val.delete(0, 9);
-            ZoneId.of(val.toString());
+            ZoneId.of(timezone);
             return true;
         } catch (Exception e) {
             return false;

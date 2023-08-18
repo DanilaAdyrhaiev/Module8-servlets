@@ -34,18 +34,13 @@ public class TimeServlet extends HttpServlet {
         log(val);
 
         if(val !=  null && !val.isEmpty()){
-            val = val.replace(" ", "+");
-            log(val);
             zoneId = ZoneId.of(val);
-            log(zoneId.toString());
         }
         else{
             zoneId = ZoneId.of("UTC");
         }
-
         ZonedDateTime zoneTime = ZonedDateTime.now(zoneId);
         time = zoneTime.format(formatter);
-
         resp.getWriter().write(time);
         resp.getWriter().close();
         log("}service");
